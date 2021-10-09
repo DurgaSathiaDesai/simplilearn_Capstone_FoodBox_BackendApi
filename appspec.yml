@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: ./target/foodboxWebApplication.war
+    destination: /var/lib/tomcat8/webapps
+  - source: ./scripts
+    destination: /var/lib/tomcat8/webapps/scripts
+file_exists_behavior: OVERWRITE
+
+hooks:
+  AfterInstall:
+    - location: scripts/start_tomcat.sh
+      timeout: 180
+      runas: root
+
