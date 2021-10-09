@@ -12,7 +12,7 @@ import com.simplilearn.capstone.foodboxWebApplication.Service.cuisineService;
 import com.simplilearn.capstone.foodboxWebApplication.Service.foodoffersService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")  
+@CrossOrigin(origins="http://54.173.120.218:80")  
 @RequestMapping(value="/api")
 public class foodoffersController 
 {
