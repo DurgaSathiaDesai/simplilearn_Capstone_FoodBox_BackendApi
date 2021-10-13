@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.simplilearn.capstone.foodboxWebApplication.Entity.foodOffers;
-import com.simplilearn.capstone.foodboxWebApplication.Service.cuisineService;
 import com.simplilearn.capstone.foodboxWebApplication.Service.foodoffersService;
 
 @RestController
-@CrossOrigin(origins="http://54.173.120.218")  
+@CrossOrigin(origins="http://localhost:4200")  
 @RequestMapping(value="/api")
 public class foodoffersController 
 {

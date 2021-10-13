@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.simplilearn.capstone.foodboxWebApplication.Dto.fooditem;
-
 @Entity
 @Table(name="orderedfooditems")
 public class orderedfoods 

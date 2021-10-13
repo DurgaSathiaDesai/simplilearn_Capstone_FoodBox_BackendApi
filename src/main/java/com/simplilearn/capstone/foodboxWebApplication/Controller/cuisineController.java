@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simplilearn.capstone.foodboxWebApplication.Entity.cuisines;
-import com.simplilearn.capstone.foodboxWebApplication.Entity.loginCredentials;
 import com.simplilearn.capstone.foodboxWebApplication.Service.cuisineService;
-import com.simplilearn.capstone.foodboxWebApplication.Service.loginService;
+
 
 
 @RestController
-@CrossOrigin(origins="http://54.173.120.218")  
+@CrossOrigin(origins="http://localhost:4200")  
 @RequestMapping(value="/api")
 public class cuisineController 
 {
