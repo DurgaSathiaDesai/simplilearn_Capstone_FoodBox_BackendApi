@@ -71,6 +71,10 @@ public class foodOffers
 	public long getOfferId() {
 		return offerId;
 	}
+	
+	public void setOfferId(long offerId) {
+		this.offerId = offerId;
+	}
 
 	@Override
 	public String toString() {

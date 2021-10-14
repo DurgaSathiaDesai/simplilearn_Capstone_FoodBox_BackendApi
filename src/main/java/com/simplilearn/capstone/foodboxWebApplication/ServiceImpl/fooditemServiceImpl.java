@@ -44,9 +44,9 @@ public class fooditemServiceImpl implements fooditemService
 			fooditem fditem = new fooditem();
 			fditem.setFoodId(fitem.getFoodId());
 			fditem.setFoodname(fitem.getFoodname());
-			logger.info("cname-->{}",fitem.getPcuisine().getCuisineId());
+			//logger.info("cname-->{}",fitem.getPcuisine().getCuisineId());
 			cuisines cuisine = cuisineRepo.getById(fitem.getPcuisine().getCuisineId());
-			logger.info("uname-->{}",cuisine.getCuisinename());
+			//logger.info("uname-->{}",cuisine.getCuisinename());
 			fditem.setCuisinename(cuisine.getCuisinename());
 			fditem.setFddescription(fitem.getFddescription());
 			fditem.setPrice(fitem.getPrice());

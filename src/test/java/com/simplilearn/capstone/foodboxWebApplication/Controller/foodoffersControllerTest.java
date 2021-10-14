@@ -7,9 +7,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -27,30 +25,29 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplilearn.capstone.foodboxWebApplication.Common.utilities;
-import com.simplilearn.capstone.foodboxWebApplication.Dto.fooditem;
-import com.simplilearn.capstone.foodboxWebApplication.Entity.loginCredentials;
-import com.simplilearn.capstone.foodboxWebApplication.Service.fooditemService;
+import com.simplilearn.capstone.foodboxWebApplication.Entity.foodOffers;
+import com.simplilearn.capstone.foodboxWebApplication.Service.foodoffersService;
 
-@WebMvcTest(fooditemController.class)
-public class fooditemControllerTest 
+@WebMvcTest(foodoffersController.class)
+public class foodoffersControllerTest 
 {
 	@Autowired
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private fooditemService fooditemservice;
+	private foodoffersService foodofferservice;
 	 
 	ObjectMapper om = new ObjectMapper();
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Test
-	public void getAllFoodsTest() throws Exception
+	public void getAllOffersTest() throws Exception
 	{
-		String uri = "/api/foodlist";
+		String uri = "/api/offerslist";
 		
-		List<fooditem> foodlist = utilities.generateFooditemList();
+		List<foodOffers> offerslist = utilities.generateFoodOffersList();
 		
-		when(fooditemservice.getAllFoodItems()).thenReturn(foodlist);
+		when(foodofferservice.getAllOffers()).thenReturn(offerslist);
 		
 		RequestBuilder request = MockMvcRequestBuilders
 				.get(uri)
@@ -58,25 +55,21 @@ public class fooditemControllerTest
 		
 		MvcResult result = mockMvc.perform(request)
 				.andExpect(status().isOk())
-				.andExpect(content().json("[{\"foodId\":1003,\"foodname\":\"Summer Risotto\",\"cuisinename\":\"Italian Cuisine\",\"price\":240.00,"
-						+ "\"fddescription\":\"creamy summer risotto with grilled corn, tomatoes, and basil.\","
-						+ "\"offers\":\"20% OFF\",\"image\":\"risotto.jpg\",\"foodstatus\":\"available\"},"
-						+ "{\"foodId\":1005,\"foodname\":\"Italian Pizza\",\"cuisinename\":\"Italian Cuisine\",\"price\":350.00,"
-						+ "\"fddescription\":\"Thin and crispy rustic Italian pizza\","
-						+ "\"offers\":\"20% OFF\",\"image\":\"Italianpizza.jpg\",\"foodstatus\":\"available\"}]"))
+				.andExpect(content().json("[{\"offerId\":1,\"offername\":\"10% OFF\",\"availstatus\":\"active\"},"
+						+ "{\"offerId\":2,\"offername\":\"20% OFF\",\"availstatus\":\"active\"},"
+						+ "{\"offerId\":3,\"offername\":\"25% OFF\",\"availstatus\":\"active\"}]"))
 				.andReturn();
 		
 		String resultContent = result.getResponse().getContentAsString();
 		logger.info("role-->{}",result.getResponse().getStatus());
 		assertEquals(result.getResponse().getStatus(),200);
 		
-		verify(fooditemservice).getAllFoodItems();
+		verify(foodofferservice).getAllOffers();
 
-		
 		@SuppressWarnings("unchecked")
-		List<fooditem> foodListResult =om.readValue(resultContent, new TypeReference<List<fooditem>>(){});
+		List<foodOffers> offerListResult =om.readValue(resultContent, new TypeReference<List<foodOffers>>(){});
 
-		assertNotNull(foodListResult);
-		assertEquals(foodlist.size(), foodListResult.size());
+		assertNotNull(offerListResult);
+		assertEquals(offerslist.size(), offerListResult.size());
 	}
 }

@@ -7,9 +7,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -28,29 +26,30 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplilearn.capstone.foodboxWebApplication.Common.utilities;
 import com.simplilearn.capstone.foodboxWebApplication.Dto.fooditem;
-import com.simplilearn.capstone.foodboxWebApplication.Entity.loginCredentials;
-import com.simplilearn.capstone.foodboxWebApplication.Service.fooditemService;
+import com.simplilearn.capstone.foodboxWebApplication.Entity.cuisines;
+import com.simplilearn.capstone.foodboxWebApplication.Service.cuisineService;
 
-@WebMvcTest(fooditemController.class)
-public class fooditemControllerTest 
+
+@WebMvcTest(cuisineController.class)
+public class cuisineControllerTest 
 {
 	@Autowired
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private fooditemService fooditemservice;
+	private cuisineService cuisineservice;
 	 
 	ObjectMapper om = new ObjectMapper();
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Test
-	public void getAllFoodsTest() throws Exception
+	public void getAllCuisinesTest() throws Exception
 	{
-		String uri = "/api/foodlist";
+		String uri = "/api/cuisinelist";
 		
-		List<fooditem> foodlist = utilities.generateFooditemList();
+		List<cuisines> clist = utilities.generateCuisinesList();
 		
-		when(fooditemservice.getAllFoodItems()).thenReturn(foodlist);
+		when(cuisineservice.getAllCuisines()).thenReturn(clist);
 		
 		RequestBuilder request = MockMvcRequestBuilders
 				.get(uri)
@@ -58,25 +57,23 @@ public class fooditemControllerTest
 		
 		MvcResult result = mockMvc.perform(request)
 				.andExpect(status().isOk())
-				.andExpect(content().json("[{\"foodId\":1003,\"foodname\":\"Summer Risotto\",\"cuisinename\":\"Italian Cuisine\",\"price\":240.00,"
-						+ "\"fddescription\":\"creamy summer risotto with grilled corn, tomatoes, and basil.\","
-						+ "\"offers\":\"20% OFF\",\"image\":\"risotto.jpg\",\"foodstatus\":\"available\"},"
-						+ "{\"foodId\":1005,\"foodname\":\"Italian Pizza\",\"cuisinename\":\"Italian Cuisine\",\"price\":350.00,"
-						+ "\"fddescription\":\"Thin and crispy rustic Italian pizza\","
-						+ "\"offers\":\"20% OFF\",\"image\":\"Italianpizza.jpg\",\"foodstatus\":\"available\"}]"))
+				.andExpect(content().json("[{\"cuisineId\":1,\"cuisinename\":\"Indian Cuisine\",\"availstatus\":\"enabled\"},"
+						+ "{\"cuisineId\":2,\"cuisinename\":\"Italian Cuisine\",\"availstatus\":\"enabled\"},"
+						+ "{\"cuisineId\":3,\"cuisinename\":\"Chinese Cuisine\",\"availstatus\":\"enabled\"}]"))
 				.andReturn();
 		
 		String resultContent = result.getResponse().getContentAsString();
 		logger.info("role-->{}",result.getResponse().getStatus());
 		assertEquals(result.getResponse().getStatus(),200);
 		
-		verify(fooditemservice).getAllFoodItems();
+		verify(cuisineservice).getAllCuisines();
 
 		
 		@SuppressWarnings("unchecked")
-		List<fooditem> foodListResult =om.readValue(resultContent, new TypeReference<List<fooditem>>(){});
+		List<cuisines> cListResult =om.readValue(resultContent, new TypeReference<List<cuisines>>(){});
 
-		assertNotNull(foodListResult);
-		assertEquals(foodlist.size(), foodListResult.size());
+		assertNotNull(cListResult);
+		assertEquals(clist.size(), cListResult.size());
 	}
 }
+	
