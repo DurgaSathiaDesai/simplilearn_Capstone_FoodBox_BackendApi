@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.simplilearn.capstone.foodboxWebApplication.Entity.cuisines;
 import com.simplilearn.capstone.foodboxWebApplication.Service.cuisineService;
 
-
-
 @RestController
 @CrossOrigin(origins="http://localhost:4200")  
 @RequestMapping(value="/api")

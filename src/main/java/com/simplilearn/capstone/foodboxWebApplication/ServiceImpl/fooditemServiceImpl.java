@@ -57,7 +57,6 @@ public class fooditemServiceImpl implements fooditemService
 			fooditemlist.add(fditem);
 		}
 		
-		
 		return fooditemlist;
 	}
 

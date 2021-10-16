@@ -38,7 +38,6 @@ public class orderServiceImpl implements orderService
 		LocalDateTime today = java.time.LocalDateTime.now();
 		orders ords = purchase.getOrder();
 		
-		//orders order = new orders();
 		String orderTrackingNumber = generateOrderTrackingNumber();
 		ords.setOrderTrackingNo(orderTrackingNumber);
 		
